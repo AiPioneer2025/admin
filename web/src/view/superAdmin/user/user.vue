@@ -60,6 +60,12 @@
           min-width="180"
           prop="email"
         />
+        <el-table-column
+          align="left"
+          label="余额"
+          min-width="180"
+          prop="balance"
+        />
         <el-table-column align="left" label="用户角色" min-width="200">
           <template #default="scope">
             <el-cascader

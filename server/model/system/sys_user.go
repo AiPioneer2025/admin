@@ -31,6 +31,7 @@ type SysUser struct {
 	Email         string         `json:"email"  gorm:"comment:用户邮箱"`                                                                         // 用户邮箱
 	Enable        int            `json:"enable" gorm:"default:1;comment:用户是否被冻结 1正常 2冻结"`                                                    //用户是否被冻结 1正常 2冻结
 	OriginSetting common.JSONMap `json:"originSetting" form:"originSetting" gorm:"type:text;default:null;column:origin_setting;comment:配置;"` //配置
+	Balance       float64        `json:"balance" gorm:"default:0;column:balance;comment:用户余额"`                                               //用户余额
 }
 
 func (SysUser) TableName() string {
