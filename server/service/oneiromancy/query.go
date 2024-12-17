@@ -14,7 +14,7 @@ type QueryService struct {
 
 func (s *QueryService) Query(query string) string {
 	resp, err := request.HttpRequest(
-		"http://127.0.0.1:8000/query",
+		"http://127.0.0.1:80/ai_core/api/query",
 		"POST",
 		nil,
 		nil,
