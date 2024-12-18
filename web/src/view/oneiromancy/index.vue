@@ -23,7 +23,7 @@
             v-model="inputMessage">
           </el-input>
           <div style="text-align: center; margin-top: 20px;"> <!-- 添加一个div用于居中按钮 -->
-            <el-button type="primary" :icon="Edit" round @click="sendMessage">发送</el-button>
+            <el-button type="primary" :icon="Edit" round @click="sendMessage" @keyup.enter="sendMessage">发送</el-button>
           </div>
         </el-footer>
       </el-container>
