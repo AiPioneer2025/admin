@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
 	"github.com/flipped-aurora/gin-vue-admin/server/utils/request"
 )
@@ -14,7 +15,8 @@ type QueryService struct {
 
 func (s *QueryService) Query(query string) string {
 	resp, err := request.HttpRequest(
-		"http://127.0.0.1:80/ai_core/api/query",
+		fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "/ai_core/api/query"),
+		// "http://127.0.0.1:80/ai_core/api/query",
 		"POST",
 		nil,
 		nil,
