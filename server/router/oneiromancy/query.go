@@ -9,5 +9,6 @@ func (s *OneiromancyRouter) InitOneiromancyRouter(Router *gin.RouterGroup) {
 	oneiromancyRouter := Router.Group("oneiromancy")
 	{
 		oneiromancyRouter.POST("query", QueryAPI.Query)
+		oneiromancyRouter.GET("query_stream", QueryAPI.Query_stream)
 	}
 }

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
@@ -15,7 +16,7 @@ type QueryService struct {
 
 func (s *QueryService) Query(query string) string {
 	resp, err := request.HttpRequest(
-		fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "/ai_core/api/query"),
+		fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "ai_core/api/query"),
 		// "http://127.0.0.1:80/ai_core/api/query",
 		"POST",
 		nil,
@@ -36,4 +37,18 @@ func (s *QueryService) Query(query string) string {
 	defer resp.Body.Close()
 	json.Unmarshal(body, &resStruct)
 	return resStruct.Data.(string)
+}
+
+func (s *QueryService) Query2(query string) (*http.Response, error) {
+	resp, err := request.HttpRequest(
+		fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "ai_core/api/query_stream_test"),
+		// "http://127.0.0.1:80/ai_core/api/query",
+		"POST",
+		nil,
+		nil,
+		map[string]string{
+			"userInput": query,
+		},
+	)
+	return resp, err
 }
