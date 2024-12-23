@@ -11,7 +11,8 @@ func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	userRouter := Router.Group("user").Use(middleware.OperationRecord())
 	userRouterWithoutRecord := Router.Group("user")
 	{
-		userRouter.POST("admin_register", baseApi.Register)               // 管理员注册账号
+		// userRouter.POST("register", baseApi.Register)                     // 用户注册账号
+		userRouter.POST("admin_register", baseApi.AdminRegister)          // 管理员注册账号
 		userRouter.POST("changePassword", baseApi.ChangePassword)         // 用户修改密码
 		userRouter.POST("setUserAuthority", baseApi.SetUserAuthority)     // 设置用户权限
 		userRouter.DELETE("deleteUser", baseApi.DeleteUser)               // 删除用户
