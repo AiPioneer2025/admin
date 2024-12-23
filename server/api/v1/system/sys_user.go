@@ -143,11 +143,13 @@ func (b *BaseApi) Register(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	err = utils.Verify(r, utils.RegisterVerify)
+	err = utils.Verify(r, utils.UserRegisterVerify)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+	// 默认是普通用户角色
+	r.AuthorityId = 888
 	var authorities []system.SysAuthority
 	for _, v := range r.AuthorityIds {
 		authorities = append(authorities, system.SysAuthority{
