@@ -187,7 +187,8 @@
 
       if (res.code === 0) {
         ElMessage({ type: 'success', message: '创建成功' })
-
+        // 返回登录界面
+        router.push('/login')
       }
     })
 
