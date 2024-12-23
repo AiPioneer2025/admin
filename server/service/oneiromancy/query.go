@@ -41,7 +41,7 @@ func (s *QueryService) Query(query string) string {
 
 func (s *QueryService) Query2(query string) (*http.Response, error) {
 	resp, err := request.HttpRequest(
-		fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "ai_core/api/query_stream_test"),
+		fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "ai_core/api/query_stream"),
 		// "http://127.0.0.1:80/ai_core/api/query",
 		"POST",
 		nil,
