@@ -84,6 +84,15 @@
                   class="shadow shadow-active h-11 w-full"
                   type="primary"
                   size="large"
+                  @click="registeration"
+                  >注 册</el-button
+                >
+              </el-form-item>
+              <el-form-item class="mb-6">
+                <el-button
+                  class="shadow shadow-active h-11 w-full"
+                  type="primary"
+                  size="large"
                   @click="checkInit"
                   >前往初始化</el-button
                 >
@@ -235,4 +244,10 @@
       }
     }
   }
+
+  // 添加注册用户功能
+  const registeration = () => {
+    router.push({ name: 'Register' });
+  }
+
 </script>

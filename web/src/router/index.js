@@ -21,6 +21,12 @@ const routes = [
       closeTab: true
     },
     component: () => import('@/view/error/index.vue')
+  },
+
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/view/register/index.vue')
   }
 ]
 
