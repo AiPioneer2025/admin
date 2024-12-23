@@ -1,27 +1,36 @@
 <template>
   <div class="chat-container">
-    <el-container>
+    <el-container class="chat-wrapper">
       <el-main>
         <el-scrollbar ref="scrollbar" class="chat-scrollbar">
           <div v-for="(message, index) in messages" :key="index" class="message">
-            <el-badge value="user" class="item" v-if="message.sender === 'user'">
-              <el-card shadow="hover">{{ message.content }}</el-card>
-            </el-badge>
-            <el-badge value="AI" class="item" v-else>
-              <el-card shadow="hover">{{ message.content }}</el-card>
-            </el-badge>
+            <div 
+              :class="['message-wrapper', message.sender === 'user' ? 'user-message' : 'ai-message']">
+              <el-card 
+                class="message-card" 
+                shadow="always" 
+                v-html="message.content">
+              </el-card>
+            </div>
           </div>
         </el-scrollbar>
       </el-main>
-      <el-footer>
+      <el-footer class="footer">
         <el-input
           type="textarea"
           placeholder="请输入梦境内容"
           @keyup.enter="handleKeyup"
-          v-model="inputMessage">
+          v-model="inputMessage"
+          rows="3"
+          clearable>
         </el-input>
-        <div style="text-align: center; margin-top: 20px;">
-          <el-button type="primary" :icon="Edit" round @click="handleSend" :disabled="isSending">发送</el-button>
+        <div class="footer-button">
+          <el-button 
+            type="primary" 
+            icon="Edit" 
+            round 
+            @click="handleSend" 
+            :disabled="isSending">发送</el-button>
         </div>
       </el-footer>
     </el-container>
@@ -62,8 +71,8 @@ const handleSend = async () => {
   scrollToBottom();
 
   try {
-    const query = new URLSearchParams(inputValue.trim()).toString();
-    const eventSource = new EventSource(`/api/oneiromancy/query_stream?query=${query}`);
+    const query = new URLSearchParams("query").toString();
+    const eventSource = new EventSource(`/api/oneiromancy/query_stream?${query}${inputValue.trim()}`);
     // 监听消息事件
     // 创建一个AI消息的条目，如果列表中还没有的话
     let aiMessageEntry = '';
@@ -72,14 +81,13 @@ const handleSend = async () => {
       messages.value.push(aiMessageEntry);
     }
     eventSource.onmessage = function(event) {
-      aiMessageEntry.content += event.data + '\n\n'; // 添加换行符以分隔消息
-      console.log(aiMessageEntry.content)
+      const dataWithBreaks = event.data.replace(/\n\n/g, '<br>');
+      aiMessageEntry.content +=dataWithBreaks; // 添加换行符以分隔消息
       messages.value.pop();
       messages.value.push({ sender: 'AI', content: aiMessageEntry.content });
     };
     // 监听错误事件
     eventSource.onerror = function(error) {
-      console.log(eventSource.CLOSED)
       if (eventSource.CLOSED === EventSource.CLOSED) {
         eventSource.close();
         isSending.value=false;
@@ -107,7 +115,6 @@ const handleSend = async () => {
 const handleKeyup = (event) => {
   console.log(isSending.value)
   if (event.key === 'Enter' && !isSending.value) {
-    console.log('Enter key pressed');
     handleSend();
   }
 };
@@ -123,28 +130,69 @@ onUnmounted(() => {
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 75vh;
+  background-color: #f4f4f5;
+}
+
+.chat-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .chat-scrollbar {
   flex: 1;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 10px;
   overflow-y: auto;
+  max-height: calc(100vh - 250px); /* 限制高度 */
 }
 
 .message {
-  margin: 10px;
+  display: flex;
+  margin-bottom: 15px;
 }
 
-.item {
-  text-align: left;
+.message-wrapper {
+  max-width: 60%;
 }
 
-.el-main {
-  flex: 1;
+.user-message {
+  justify-content: flex-end;
+  align-items: flex-end;
 }
 
-.el-footer {
+.ai-message {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.message-card {
   padding: 10px;
-  height: calc(100vh - 500px);
+  border-radius: 10px;
+  background-color: #e0f7fa;
+  color: #00796b;
+}
+
+.user-message .message-card {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.ai-message .message-card {
+  background-color: #f1f8e9;
+  color: #33691e;
+}
+
+.footer-button {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.el-input {
+  width: 100%;
+  border-radius: 6px;
 }
 </style>

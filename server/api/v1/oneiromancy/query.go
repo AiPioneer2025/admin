@@ -35,25 +35,63 @@ func (a *QueryAPI) Query(c *gin.Context) {
 	response.OkWithData(result, c)
 }
 
+// func (a *QueryAPI) Query_stream(c *gin.Context) {
+// 	// var reqBody request.QueryRequestBody
+// 	// // 将请求体绑定到结构体上
+// 	// if err := c.ShouldBindJSON(&reqBody); err != nil {
+// 	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+// 	// 	return
+// 	// }
+// 	query := c.Query("query")
+// 	resp, err := QueryService.Query2(query)
+// 	// resp, err := urequest.HttpRequest(
+// 	// 	fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "ai_core/api/query_stream_test"),
+// 	// 	// "http://127.0.0.1:80/ai_core/api/query",
+// 	// 	"POST",
+// 	// 	nil,
+// 	// 	nil,
+// 	// 	map[string]string{
+// 	// 		"userInput": query,
+// 	// 	},
+// 	// )
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+// 		return
+// 	}
+// 	defer resp.Body.Close()
+
+// 	// 设置流式响应头
+// 	c.Header("Content-Type", "text/event-stream")
+// 	c.Header("Cache-Control", "no-cache")
+// 	c.Header("Connection", "keep-alive")
+// 	c.Header("Access-Control-Allow-Origin", "*")
+
+// 	// 逐行读取并写入客户端
+// 	reader := bufio.NewReader(resp.Body)
+// 	for {
+// 		line, err := reader.ReadString('\n')
+// 		if err != nil {
+// 			if err != io.EOF {
+// 				fmt.Printf("error reading stream: %v\n", err)
+// 			}
+// 			break
+// 		}
+// 		// 添加 `data: ` 前缀，符合 SSE 格式
+// 		formattedLine := fmt.Sprintf("data: %s\n\n", line)
+// 		fmt.Println(formattedLine)
+// 		_, writeErr := c.Writer.WriteString(formattedLine)
+// 		if writeErr != nil {
+// 			fmt.Printf("error writing stream: %v\n", writeErr)
+// 			break
+// 		}
+// 		c.Writer.Flush()
+// 	}
+// }
+
 func (a *QueryAPI) Query_stream(c *gin.Context) {
-	// var reqBody request.QueryRequestBody
-	// // 将请求体绑定到结构体上
-	// if err := c.ShouldBindJSON(&reqBody); err != nil {
-	// 	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-	// 	return
-	// }
 	query := c.Query("query")
 	resp, err := QueryService.Query2(query)
-	// resp, err := urequest.HttpRequest(
-	// 	fmt.Sprintf("%s/%s", global.GVA_CONFIG.AI_Core.URL, "ai_core/api/query_stream_test"),
-	// 	// "http://127.0.0.1:80/ai_core/api/query",
-	// 	"POST",
-	// 	nil,
-	// 	nil,
-	// 	map[string]string{
-	// 		"userInput": query,
-	// 	},
-	// )
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -69,17 +107,29 @@ func (a *QueryAPI) Query_stream(c *gin.Context) {
 	// 逐行读取并写入客户端
 	reader := bufio.NewReader(resp.Body)
 	for {
-		line, err := reader.ReadString('\n')
+		r, _, err := reader.ReadRune()
 		if err != nil {
 			if err != io.EOF {
 				fmt.Printf("error reading stream: %v\n", err)
 			}
 			break
 		}
-		// 添加 `data: ` 前缀，符合 SSE 格式
-		formattedLine := fmt.Sprintf("data: %s\n\n", line)
-		fmt.Println(formattedLine)
-		_, writeErr := c.Writer.WriteString(formattedLine)
+		var formattedData string
+		// 检查是否读取到了换行符，如果是则发送数据
+		if r == '\n' {
+			nextRune, _, nextErr := reader.ReadRune()
+			if nextErr == nil && nextRune == '\n' {
+				formattedData = "data: <br>\n\n"
+			} else {
+				// 若没有连续换行，则回退读取的字符
+				_ = reader.UnreadRune()
+				formattedData = "data: \n\n"
+			}
+		} else {
+			formattedData = fmt.Sprintf("data: %c\n\n", r)
+		}
+		// formattedData := fmt.Sprintf("data: %c\n\n", r)
+		_, writeErr := c.Writer.WriteString(formattedData)
 		if writeErr != nil {
 			fmt.Printf("error writing stream: %v\n", writeErr)
 			break
