@@ -2,6 +2,7 @@ package system
 
 import (
 	"context"
+
 	sysModel "github.com/flipped-aurora/gin-vue-admin/server/model/system"
 	"github.com/flipped-aurora/gin-vue-admin/server/service/system"
 	"github.com/pkg/errors"
@@ -51,6 +52,7 @@ func (i *initApiIgnore) InitializeData(ctx context.Context) (context.Context, er
 		{Method: "POST", Path: "/autoCode/llmAuto"},
 		{Method: "POST", Path: "/system/reloadSystem"},
 		{Method: "POST", Path: "/base/login"},
+		{Method: "POST", Path: "/base/register"},
 		{Method: "POST", Path: "/base/captcha"},
 		{Method: "POST", Path: "/init/initdb"},
 		{Method: "POST", Path: "/init/checkdb"},
