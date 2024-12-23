@@ -11,6 +11,18 @@ export const login = (data) => {
   })
 }
 
+// @Summary 用户登录
+// @Produce  application/json
+// @Param data body {username:"string",password:"string"}
+// @Router /base/register [post]
+export const user_register = (data) => {
+  return service({
+    url: '/base/register',
+    method: 'post',
+    data: data
+  })
+}
+
 // @Summary 获取验证码
 // @Produce  application/json
 // @Param data body {username:"string",password:"string"}
@@ -22,7 +34,7 @@ export const captcha = () => {
   })
 }
 
-// @Summary 用户注册
+// @Summary admin用户注册
 // @Produce  application/json
 // @Param data body {username:"string",password:"string"}
 // @Router /base/resige [post]

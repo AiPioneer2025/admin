@@ -30,12 +30,12 @@
               :validate-on-rule-change="false"
               @keyup.enter="submitForm"
             >
-              <el-form-item prop="username" class="mb-6">
+              <el-form-item prop="userName" class="mb-6">
                 <el-input
-                  v-model="registerFormData.username"
+                  v-model="registerFormData.userName"
                   size="large"
                   placeholder="请输入用户名"
-                  suffix-icon="username"
+                  suffix-icon="userName"
                 />
               </el-form-item>
               <el-form-item prop="email" class="mb-6">
@@ -46,12 +46,12 @@
                   suffix-icon="email"
                 />
               </el-form-item>
-              <el-form-item prop="password" class="mb-6">
+              <el-form-item prop="passWord" class="mb-6">
                 <el-input
-                  v-model="registerFormData.password"
+                  v-model="registerFormData.passWord"
                   show-password
                   size="large"
-                  type="password"
+                  type="passWord"
                   placeholder="请输入密码"
                 />
               </el-form-item>
@@ -116,26 +116,81 @@
   import { useRouter } from 'vue-router'
   import { useUserStore } from '@/pinia/modules/user'
 
+  // 注册功能
+  import {
+    user_register
+  } from '@/api/user'
+
   defineOptions({
     name: 'Register'
   })
 
   const router = useRouter()
 
+  const registerForm = ref(null)
   const registerFormData = reactive({
-    username: '',
+    userName: '',
     email: '',
-    password: '',
+    passWord: '',
     confirmPassword: '',
   })
 
+  const checkConfirmPassword = (rule, value, callback) => {
+    if (value !== registerFormData.passWord) {
+      callback(new Error('确认密码与密码不一致'))
+    } else {
+      callback()
+    }
+  }
+
   const rules = reactive({
-    
+    userName: [
+    { required: true, message: '请输入用户名', trigger: 'blur' }
+    ],
+    email: [
+      { required: true, message: '请输入邮箱', trigger: 'blur' },
+      {
+        pattern: /^([0-9A-Za-z\-_.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g,
+        message: '请输入正确的邮箱',
+        trigger: 'blur'
+      }
+    ],
+    passWord: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度应为 6 到 20 个字符', trigger: 'blur' }
+  ],
+  confirmPassword: [
+    { required: true, message: '请输入确认密码', trigger: 'blur' },
+    { validator: checkConfirmPassword, trigger: 'blur' }
+  ]
   })
 
   const submitForm = () => {
     // 注册逻辑
-    // console.log('注册表单提交', registerForm.value);
+    registerForm.value.validate(async (v) => {
+      if (!v) {
+        ElMessage({
+          type: 'error',
+          message: '请正确填写注册信息',
+          showClose: true
+        })
+        return false
+      }
+
+      const req = {
+        userName: registerFormData.userName,
+        email: registerFormData.email,
+        passWord: registerFormData.passWord,
+      }
+      const res = await user_register(req)
+
+      if (res.code === 0) {
+        ElMessage({ type: 'success', message: '创建成功' })
+
+      }
+    })
+
+
   }
 
 </script>
