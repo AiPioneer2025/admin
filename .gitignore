@@ -33,3 +33,6 @@ server/uploads/
 *.iml
 web/.pnpm-debug.log
 web/pnpm-lock.yaml
+
+# build
+app-linux
