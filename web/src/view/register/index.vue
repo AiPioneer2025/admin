@@ -181,6 +181,7 @@
         userName: registerFormData.userName,
         email: registerFormData.email,
         passWord: registerFormData.passWord,
+        nickName: registerFormData.userName
       }
       const res = await user_register(req)
 
