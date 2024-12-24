@@ -12,14 +12,14 @@ import (
 type SysParamsApi struct{}
 
 // CreateSysParams 创建参数
-// @Tags SysParams
-// @Summary 创建参数
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body system.SysParams true "创建参数"
-// @Success 200 {object} response.Response{msg=string} "创建成功"
-// @Router /sysParams/createSysParams [post]
+//	@Tags		SysParams
+//	@Summary	创建参数
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		system.SysParams				true	"创建参数"
+//	@Success	200		{object}	response.Response{msg=string}	"创建成功"
+//	@Router		/sysParams/createSysParams [post]
 func (sysParamsApi *SysParamsApi) CreateSysParams(c *gin.Context) {
 	var sysParams system.SysParams
 	err := c.ShouldBindJSON(&sysParams)
@@ -37,14 +37,14 @@ func (sysParamsApi *SysParamsApi) CreateSysParams(c *gin.Context) {
 }
 
 // DeleteSysParams 删除参数
-// @Tags SysParams
-// @Summary 删除参数
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body system.SysParams true "删除参数"
-// @Success 200 {object} response.Response{msg=string} "删除成功"
-// @Router /sysParams/deleteSysParams [delete]
+//	@Tags		SysParams
+//	@Summary	删除参数
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		system.SysParams				true	"删除参数"
+//	@Success	200		{object}	response.Response{msg=string}	"删除成功"
+//	@Router		/sysParams/deleteSysParams [delete]
 func (sysParamsApi *SysParamsApi) DeleteSysParams(c *gin.Context) {
 	ID := c.Query("ID")
 	err := sysParamsService.DeleteSysParams(ID)
@@ -57,13 +57,13 @@ func (sysParamsApi *SysParamsApi) DeleteSysParams(c *gin.Context) {
 }
 
 // DeleteSysParamsByIds 批量删除参数
-// @Tags SysParams
-// @Summary 批量删除参数
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Success 200 {object} response.Response{msg=string} "批量删除成功"
-// @Router /sysParams/deleteSysParamsByIds [delete]
+//	@Tags		SysParams
+//	@Summary	批量删除参数
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{msg=string}	"批量删除成功"
+//	@Router		/sysParams/deleteSysParamsByIds [delete]
 func (sysParamsApi *SysParamsApi) DeleteSysParamsByIds(c *gin.Context) {
 	IDs := c.QueryArray("IDs[]")
 	err := sysParamsService.DeleteSysParamsByIds(IDs)
@@ -76,14 +76,14 @@ func (sysParamsApi *SysParamsApi) DeleteSysParamsByIds(c *gin.Context) {
 }
 
 // UpdateSysParams 更新参数
-// @Tags SysParams
-// @Summary 更新参数
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data body system.SysParams true "更新参数"
-// @Success 200 {object} response.Response{msg=string} "更新成功"
-// @Router /sysParams/updateSysParams [put]
+//	@Tags		SysParams
+//	@Summary	更新参数
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		system.SysParams				true	"更新参数"
+//	@Success	200		{object}	response.Response{msg=string}	"更新成功"
+//	@Router		/sysParams/updateSysParams [put]
 func (sysParamsApi *SysParamsApi) UpdateSysParams(c *gin.Context) {
 	var sysParams system.SysParams
 	err := c.ShouldBindJSON(&sysParams)
@@ -101,14 +101,14 @@ func (sysParamsApi *SysParamsApi) UpdateSysParams(c *gin.Context) {
 }
 
 // FindSysParams 用id查询参数
-// @Tags SysParams
-// @Summary 用id查询参数
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query system.SysParams true "用id查询参数"
-// @Success 200 {object} response.Response{data=system.SysParams,msg=string} "查询成功"
-// @Router /sysParams/findSysParams [get]
+//	@Tags		SysParams
+//	@Summary	用id查询参数
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		system.SysParams									true	"用id查询参数"
+//	@Success	200		{object}	response.Response{data=system.SysParams,msg=string}	"查询成功"
+//	@Router		/sysParams/findSysParams [get]
 func (sysParamsApi *SysParamsApi) FindSysParams(c *gin.Context) {
 	ID := c.Query("ID")
 	resysParams, err := sysParamsService.GetSysParams(ID)
@@ -121,14 +121,14 @@ func (sysParamsApi *SysParamsApi) FindSysParams(c *gin.Context) {
 }
 
 // GetSysParamsList 分页获取参数列表
-// @Tags SysParams
-// @Summary 分页获取参数列表
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param data query systemReq.SysParamsSearch true "分页获取参数列表"
-// @Success 200 {object} response.Response{data=response.PageResult,msg=string} "获取成功"
-// @Router /sysParams/getSysParamsList [get]
+//	@Tags		SysParams
+//	@Summary	分页获取参数列表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	query		systemReq.SysParamsSearch								true	"分页获取参数列表"
+//	@Success	200		{object}	response.Response{data=response.PageResult,msg=string}	"获取成功"
+//	@Router		/sysParams/getSysParamsList [get]
 func (sysParamsApi *SysParamsApi) GetSysParamsList(c *gin.Context) {
 	var pageInfo systemReq.SysParamsSearch
 	err := c.ShouldBindQuery(&pageInfo)
@@ -151,14 +151,14 @@ func (sysParamsApi *SysParamsApi) GetSysParamsList(c *gin.Context) {
 }
 
 // GetSysParam 根据key获取参数value
-// @Tags SysParams
-// @Summary 根据key获取参数value
-// @Security ApiKeyAuth
-// @accept application/json
-// @Produce application/json
-// @Param key query string true "key"
-// @Success 200 {object} response.Response{data=system.SysParams,msg=string} "获取成功"
-// @Router /sysParams/getSysParam [get]
+//	@Tags		SysParams
+//	@Summary	根据key获取参数value
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		key	query		string												true	"key"
+//	@Success	200	{object}	response.Response{data=system.SysParams,msg=string}	"获取成功"
+//	@Router		/sysParams/getSysParam [get]
 func (sysParamsApi *SysParamsApi) GetSysParam(c *gin.Context) {
 	k := c.Query("key")
 	params, err := sysParamsService.GetSysParam(k)

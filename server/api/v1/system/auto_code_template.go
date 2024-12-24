@@ -12,14 +12,14 @@ import (
 type AutoCodeTemplateApi struct{}
 
 // Preview
-// @Tags      AutoCodeTemplate
-// @Summary   预览创建后的代码
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Param     data  body      request.AutoCode                                      true  "预览创建代码"
-// @Success   200   {object}  response.Response{data=map[string]interface{},msg=string}  "预览创建后的代码"
-// @Router    /autoCode/preview [post]
+//	@Tags		AutoCodeTemplate
+//	@Summary	预览创建后的代码
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		request.AutoCode											true	"预览创建代码"
+//	@Success	200		{object}	response.Response{data=map[string]interface{},msg=string}	"预览创建后的代码"
+//	@Router		/autoCode/preview [post]
 func (a *AutoCodeTemplateApi) Preview(c *gin.Context) {
 	var info request.AutoCode
 	err := c.ShouldBindJSON(&info)
@@ -48,14 +48,14 @@ func (a *AutoCodeTemplateApi) Preview(c *gin.Context) {
 }
 
 // Create
-// @Tags      AutoCodeTemplate
-// @Summary   自动代码模板
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Param     data  body      request.AutoCode  true  "创建自动代码"
-// @Success   200   {string}  string                 "{"success":true,"data":{},"msg":"创建成功"}"
-// @Router    /autoCode/createTemp [post]
+//	@Tags		AutoCodeTemplate
+//	@Summary	自动代码模板
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		request.AutoCode	true	"创建自动代码"
+//	@Success	200		{string}	string				"{"success":true,"data":{},"msg":"创建成功"}"
+//	@Router		/autoCode/createTemp [post]
 func (a *AutoCodeTemplateApi) Create(c *gin.Context) {
 	var info request.AutoCode
 	err := c.ShouldBindJSON(&info)
@@ -83,14 +83,14 @@ func (a *AutoCodeTemplateApi) Create(c *gin.Context) {
 }
 
 // Create
-// @Tags      AddFunc
-// @Summary   增加方法
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Param     data  body      request.AutoCode  true  "增加方法"
-// @Success   200   {string}  string                 "{"success":true,"data":{},"msg":"创建成功"}"
-// @Router    /autoCode/addFunc [post]
+//	@Tags		AddFunc
+//	@Summary	增加方法
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		request.AutoCode	true	"增加方法"
+//	@Success	200		{string}	string				"{"success":true,"data":{},"msg":"创建成功"}"
+//	@Router		/autoCode/addFunc [post]
 func (a *AutoCodeTemplateApi) AddFunc(c *gin.Context) {
 	var info request.AutoFunc
 	err := c.ShouldBindJSON(&info)

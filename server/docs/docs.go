@@ -6001,7 +6001,7 @@ const docTemplate = `{
                 "tags": [
                     "SysUser"
                 ],
-                "summary": "用户注册账号",
+                "summary": "管理员注册账号",
                 "parameters": [
                     {
                         "description": "用户名, 昵称, 密码, 角色ID",
@@ -6231,6 +6231,51 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/register": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "用户注册账号",
+                "parameters": [
+                    {
+                        "description": "用户名, 昵称, 密码, 角色ID",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户注册账号,返回包括用户信息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysUserResponse"
+                                        },
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/user/resetPassword": {
             "post": {
                 "security": [
@@ -6437,6 +6482,14 @@ const docTemplate = `{
         "common.JSONMap": {
             "type": "object",
             "additionalProperties": true
+        },
+        "config.AiCoureConfig": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
         },
         "config.AliyunOSS": {
             "type": "object",
@@ -7060,6 +7113,14 @@ const docTemplate = `{
         "config.Server": {
             "type": "object",
             "properties": {
+                "ai_core": {
+                    "description": "ai_core",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/config.AiCoureConfig"
+                        }
+                    ]
+                },
                 "aliyun-oss": {
                     "$ref": "#/definitions/config.AliyunOSS"
                 },

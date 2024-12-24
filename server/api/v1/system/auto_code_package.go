@@ -14,14 +14,14 @@ import (
 type AutoCodePackageApi struct{}
 
 // Create
-// @Tags      AutoCodePackage
-// @Summary   创建package
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Param     data  body      request.SysAutoCodePackageCreate                                         true  "创建package"
-// @Success   200   {object}  response.Response{data=map[string]interface{},msg=string}  "创建package成功"
-// @Router    /autoCode/createPackage [post]
+//	@Tags		AutoCodePackage
+//	@Summary	创建package
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		request.SysAutoCodePackageCreate							true	"创建package"
+//	@Success	200		{object}	response.Response{data=map[string]interface{},msg=string}	"创建package成功"
+//	@Router		/autoCode/createPackage [post]
 func (a *AutoCodePackageApi) Create(c *gin.Context) {
 	var info request.SysAutoCodePackageCreate
 	_ = c.ShouldBindJSON(&info)
@@ -43,14 +43,14 @@ func (a *AutoCodePackageApi) Create(c *gin.Context) {
 }
 
 // Delete
-// @Tags      AutoCode
-// @Summary   删除package
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Param     data  body      common.GetById                                         true  "创建package"
-// @Success   200   {object}  response.Response{data=map[string]interface{},msg=string}  "删除package成功"
-// @Router    /autoCode/delPackage [post]
+//	@Tags		AutoCode
+//	@Summary	删除package
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		data	body		common.GetById												true	"创建package"
+//	@Success	200		{object}	response.Response{data=map[string]interface{},msg=string}	"删除package成功"
+//	@Router		/autoCode/delPackage [post]
 func (a *AutoCodePackageApi) Delete(c *gin.Context) {
 	var info common.GetById
 	_ = c.ShouldBindJSON(&info)
@@ -64,13 +64,13 @@ func (a *AutoCodePackageApi) Delete(c *gin.Context) {
 }
 
 // All
-// @Tags      AutoCodePackage
-// @Summary   获取package
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200  {object}  response.Response{data=map[string]interface{},msg=string}  "创建package成功"
-// @Router    /autoCode/getPackage [post]
+//	@Tags		AutoCodePackage
+//	@Summary	获取package
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"创建package成功"
+//	@Router		/autoCode/getPackage [post]
 func (a *AutoCodePackageApi) All(c *gin.Context) {
 	data, err := autoCodePackageService.All(c.Request.Context())
 	if err != nil {
@@ -82,13 +82,13 @@ func (a *AutoCodePackageApi) All(c *gin.Context) {
 }
 
 // Templates
-// @Tags      AutoCodePackage
-// @Summary   获取package
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200  {object}  response.Response{data=map[string]interface{},msg=string}  "创建package成功"
-// @Router    /autoCode/getTemplates [get]
+//	@Tags		AutoCodePackage
+//	@Summary	获取package
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"创建package成功"
+//	@Router		/autoCode/getTemplates [get]
 func (a *AutoCodePackageApi) Templates(c *gin.Context) {
 	data, err := autoCodePackageService.Templates(c.Request.Context())
 	if err != nil {

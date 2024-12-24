@@ -17,13 +17,13 @@ import (
 type AutoCodeApi struct{}
 
 // GetDB
-// @Tags      AutoCode
-// @Summary   获取当前所有数据库
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200  {object}  response.Response{data=map[string]interface{},msg=string}  "获取当前所有数据库"
-// @Router    /autoCode/getDB [get]
+//	@Tags		AutoCode
+//	@Summary	获取当前所有数据库
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"获取当前所有数据库"
+//	@Router		/autoCode/getDB [get]
 func (autoApi *AutoCodeApi) GetDB(c *gin.Context) {
 	businessDB := c.Query("businessDB")
 	dbs, err := autoCodeService.Database(businessDB).GetDB(businessDB)
@@ -45,13 +45,13 @@ func (autoApi *AutoCodeApi) GetDB(c *gin.Context) {
 }
 
 // GetTables
-// @Tags      AutoCode
-// @Summary   获取当前数据库所有表
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200  {object}  response.Response{data=map[string]interface{},msg=string}  "获取当前数据库所有表"
-// @Router    /autoCode/getTables [get]
+//	@Tags		AutoCode
+//	@Summary	获取当前数据库所有表
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"获取当前数据库所有表"
+//	@Router		/autoCode/getTables [get]
 func (autoApi *AutoCodeApi) GetTables(c *gin.Context) {
 	dbName := c.Query("dbName")
 	businessDB := c.Query("businessDB")
@@ -76,13 +76,13 @@ func (autoApi *AutoCodeApi) GetTables(c *gin.Context) {
 }
 
 // GetColumn
-// @Tags      AutoCode
-// @Summary   获取当前表所有字段
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200  {object}  response.Response{data=map[string]interface{},msg=string}  "获取当前表所有字段"
-// @Router    /autoCode/getColumn [get]
+//	@Tags		AutoCode
+//	@Summary	获取当前表所有字段
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"获取当前表所有字段"
+//	@Router		/autoCode/getColumn [get]
 func (autoApi *AutoCodeApi) GetColumn(c *gin.Context) {
 	businessDB := c.Query("businessDB")
 	dbName := c.Query("dbName")

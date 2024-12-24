@@ -12,14 +12,14 @@ import (
 type AutoCodePluginApi struct{}
 
 // Install
-// @Tags      AutoCodePlugin
-// @Summary   安装插件
-// @Security  ApiKeyAuth
-// @accept    multipart/form-data
-// @Produce   application/json
-// @Param     plug  formData  file                                              true  "this is a test file"
-// @Success   200   {object}  response.Response{data=[]interface{},msg=string}  "安装插件成功"
-// @Router    /autoCode/installPlugin [post]
+//	@Tags		AutoCodePlugin
+//	@Summary	安装插件
+//	@Security	ApiKeyAuth
+//	@accept		multipart/form-data
+//	@Produce	application/json
+//	@Param		plug	formData	file												true	"this is a test file"
+//	@Success	200		{object}	response.Response{data=[]interface{},msg=string}	"安装插件成功"
+//	@Router		/autoCode/installPlugin [post]
 func (a *AutoCodePluginApi) Install(c *gin.Context) {
 	header, err := c.FormFile("plug")
 	if err != nil {
@@ -51,14 +51,14 @@ func (a *AutoCodePluginApi) Install(c *gin.Context) {
 }
 
 // Packaged
-// @Tags      AutoCodePlugin
-// @Summary   打包插件
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Param     plugName  query    string  true  "插件名称"
-// @Success   200   {object}  response.Response{data=map[string]interface{},msg=string}  "打包插件成功"
-// @Router    /autoCode/pubPlug [post]
+//	@Tags		AutoCodePlugin
+//	@Summary	打包插件
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Param		plugName	query		string														true	"插件名称"
+//	@Success	200			{object}	response.Response{data=map[string]interface{},msg=string}	"打包插件成功"
+//	@Router		/autoCode/pubPlug [post]
 func (a *AutoCodePluginApi) Packaged(c *gin.Context) {
 	plugName := c.Query("plugName")
 	zipPath, err := autoCodePluginService.PubPlug(plugName)
@@ -71,13 +71,13 @@ func (a *AutoCodePluginApi) Packaged(c *gin.Context) {
 }
 
 // Packaged
-// @Tags      AutoCodePlugin
-// @Summary   打包插件
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200   {object}  response.Response{data=map[string]interface{},msg=string}  "打包插件成功"
-// @Router    /autoCode/initMenu [post]
+//	@Tags		AutoCodePlugin
+//	@Summary	打包插件
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"打包插件成功"
+//	@Router		/autoCode/initMenu [post]
 func (a *AutoCodePluginApi) InitMenu(c *gin.Context) {
 	var menuInfo request.InitMenu
 	err := c.ShouldBindJSON(&menuInfo)
@@ -95,13 +95,13 @@ func (a *AutoCodePluginApi) InitMenu(c *gin.Context) {
 }
 
 // Packaged
-// @Tags      AutoCodePlugin
-// @Summary   打包插件
-// @Security  ApiKeyAuth
-// @accept    application/json
-// @Produce   application/json
-// @Success   200   {object}  response.Response{data=map[string]interface{},msg=string}  "打包插件成功"
-// @Router    /autoCode/initAPI [post]
+//	@Tags		AutoCodePlugin
+//	@Summary	打包插件
+//	@Security	ApiKeyAuth
+//	@accept		application/json
+//	@Produce	application/json
+//	@Success	200	{object}	response.Response{data=map[string]interface{},msg=string}	"打包插件成功"
+//	@Router		/autoCode/initAPI [post]
 func (a *AutoCodePluginApi) InitAPI(c *gin.Context) {
 	var apiInfo request.InitApi
 	err := c.ShouldBindJSON(&apiInfo)
