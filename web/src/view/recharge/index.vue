@@ -1,23 +1,33 @@
-<template>
-    <div class="balance-recharge">
-      <h1>余额充值</h1>
-      <form @submit.prevent="handleRecharge">
-        <div>
-          <label for="amount">充值金额:</label>
-          <input type="number" id="amount" v-model="rechargeAmount" required>
-        </div>
-        <div>
-          <button type="submit">确认充值</button>
-        </div>
-      </form>
-    </div>
+  <template>
+
+    <h1>余额充值</h1>
+    <el-form :model="form" :rules="rules" ref="rechargeForm" label-width="100px" @keyup.enter="handleRecharge">
+      <el-form-item class="mb-6" label="充值金额" prop="rechargeAmount">
+        <el-input v-model="form.rechargeAmount" placeholder="请输入充值金额"></el-input>
+      </el-form-item>
+      <el-form-item class="mb-6">
+        <el-button 
+          class="shadow shadow-active h-11 w-full" 
+          type="primary" 
+          @click="handleRecharge"
+          >确认充值</el-button>
+      </el-form-item>
+    </el-form>
   </template>
   
   <script>
   export default {
     data() {
       return {
-        rechargeAmount: 0, // 充值金额
+        form: {
+          rechargeAmount: ''
+        },
+        rules: {
+          rechargeAmount: [
+            { required: true, message: '请输入充值金额', trigger: 'blur' },
+            { min: 1, message: '充值金额必须大于0', trigger: 'blur' }
+          ]
+        }
       };
     },
     methods: {
