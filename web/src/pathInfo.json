@@ -35,6 +35,7 @@
   "/src/view/login/index.vue": "Login",
   "/src/view/oneiromancy/index.vue": "Index",
   "/src/view/person/person.vue": "Person",
+  "/src/view/recharge/index.vue": "Index",
   "/src/view/register/index.vue": "Register",
   "/src/view/routerHolder.vue": "RouterHolder",
   "/src/view/superAdmin/api/api.vue": "Api",
